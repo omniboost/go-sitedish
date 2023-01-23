@@ -32,7 +32,7 @@ type VATCode struct {
 	// This is a value between 0 and 1. With 0 representing 0% VAT basis ratio
 	// and 1 representing 100% VAT basis ratio. Example: 1000 kr with 50% VAT
 	// basis ratio and 25% VAT rate is calculated: 1000 0.5 0.25 = 125 kr.
-	VatBasisRatio float64 `json:"vatBasisRatio"`
+	VATBasisRatio float64 `json:"vatBasisRatio"`
 	// Gets the date which the VAT code expires.
 	Validto string `json:"validto,omitempty"`
 }
@@ -178,17 +178,16 @@ type ManualJournalVoucherLine struct {
 	// calculated depending on what code is provided from the total amount
 	// inclusive (Amount). If not provided, the voucher will use default VAT
 	// code 0 on the line, resulting in a vat free transaction.
-	VatCode string `json:"VatCode"`
+	VATCode string `json:"VatCode"`
 	// Gets or sets the VatReturnSpecification . Entries that are vat reportable
 	// might report vat return specifications from 2022. If not provided, the
 	// voucher will use the vat returns specification that is default on the
 	// account if there is any, otherwise
 	// GoApi.Common.VatReturnSpecification.None .
-	VatReturnSpecification VatReturnSpecification `json:"VatReturnSpecification"`
+	VATReturnSpecification VATReturnSpecification `json:"VatReturnSpecification"`
 }
 
-type VatReturnSpecification struct {
-}
+type VATReturnSpecification int
 
 type OutgoingInvoiceListItems []OutgoingInvoiceListItem
 
@@ -566,7 +565,7 @@ type OutgoingInvoiceLine struct {
 	// between -10 and 0.
 	DiscountPercent float64 `json:"DiscountPercent,omitempty"`
 	//
-	ExemptVat bool `json:"ExemptVat,omitempty"`
+	ExemptVAT bool `json:"ExemptVat,omitempty"`
 	// Gets or sets an external import line reference. Can be used to
 	// correlate/duplicate check invoice lines. Must be a unique value for a
 	// given client, exception will be thrown if an OutgoingInvoiceLine with
@@ -654,7 +653,7 @@ type OutgoingInvoiceLine struct {
 	// line will use the vat returns specification that is default on the
 	// account of the product if there is any, otherwise
 	// GoApi.Common.VatReturnSpecification.None .
-	VatReturnSpecification VatReturnSpecification `json:"VatReturnSpecification,omitempty"`
+	VATReturnSpecification VATReturnSpecification `json:"VatReturnSpecification,omitempty"`
 }
 
 func (l OutgoingInvoiceLine) MarshalJSON() ([]byte, error) {
@@ -754,7 +753,7 @@ type Customer struct {
 	// Gets or sets a value indicating whether this party is a private person.
 	IsPerson bool `json:"IsPerson,omitempty"`
 	// Gets or sets a value indicating whether this customer is vat free. Sales against the customer will use the alternative sales account on the product or product group when posting the revenue if this is set to true.
-	IsVatFree bool `json:"IsVatFree,omitempty"`
+	IsVATFree bool `json:"IsVatFree,omitempty"`
 	// Gets the last changed date.
 	LastChanged Date `json:"LastChanged,omitempty"`
 	// Gets or sets the last name.
@@ -850,7 +849,7 @@ type GeneralLedgerAccount struct {
 	// Gets or sets a value indicating whether Project is required when posting an accounting entry on this account.
 	IsProjectRequired bool `json:"IsProjectRequired"`
 	// Gets or sets a value indicating whether vat code is locked after posting an accounting entry to this account.
-	IsVatCodeLockedAfterPosting bool `json:"IsVatCodeLockedAfterPosting"`
+	IsVATCodeLockedAfterPosting bool `json:"IsVatCodeLockedAfterPosting"`
 	// Gets the last changed date.
 	LastChanged Date `json:"LastChanged"`
 	// Gets or sets the name. Required property when creating new general ledger accounts.
@@ -863,4 +862,108 @@ type GeneralLedgerAccount struct {
 	VATReturnSpecification VATReturnSpecification `json:"VatReturnSpecification"`
 }
 
-type VATReturnSpecification int
+type OutgoingInvoiceVoucher struct {
+	// Gets or sets the Customer Identification Code (Norwegian: KID).
+	CID string `json:"Cid"`
+	// Gets or sets the contract no.
+	ContractNo string `json:"ContractNo"`
+	// Gets the created date. This value is assigned by PowerOffice Go when the voucher is posted.
+	CreatedDate Date `json:"CreatedDate"`
+	// Gets or sets the currency code.
+	CurrencyCode string `json:"CurrencyCode"`
+	// Gets or sets the normalized currency rate of the OutgoingInvoiceVoucher (factor to multiply amount in voucher currency with to get amount in local currency).
+	CurrencyRate float64 `json:"CurrencyRate"`
+	// Gets or sets the code of the Customer this invoice is to.
+	CustomerCode int `json:"CustomerCode"`
+	// Gets or sets the customer reference.
+	CustomerReference string `json:"CustomerReference"`
+	// Gets or sets the custom matching reference. Vouchers with this value can be matched with other entries with same CustomMatchingReference.
+	CustomMatchingReference string `json:"CustomMatchingReference"`
+	// Gets or sets the delivery date.
+	DeliveryDate Date `json:"DeliveryDate"`
+	// Gets or set delivery term of the invoice.
+	DeliveryTerm string `json:"DeliveryTerm"`
+	// Gets or sets the code of the Department .
+	DepartmentCode string `json:"DepartmentCode"`
+	// Gets or sets the code of the custom dimension 1.
+	Dim1Code string `json:"Dim1Code"`
+	// Gets or sets the code of the custom dimension 2.
+	Dim2Code string `json:"Dim2Code"`
+	// Gets or sets the code of the custom dimension 3.
+	Dim3Code string `json:"Dim3Code"`
+	// Gets or sets the due date. If not provided, the due date of the outgoing invoice voucher will be set to VoucherDate.
+	DueDate Date `json:"DueDate"`
+	// Gets or sets ExternalImportReference. Can be used to correlate/duplicate check vouchers. Must be a unique value for a given client. Max length is 50 characters.
+	ExternalImportReference string `json:"ExternalImportReference"`
+	// Set to true if the voucher has VoucherDocumentation imported through the API.
+	HasImportedDocumentation bool `json:"HasImportedDocumentation"`
+	// Gets a value indicating if the invoice has original documentation.
+	HasVoucherDocumentation bool `json:"HasVoucherDocumentation"`
+	// Gets the identifier. This identifier is unique and assigned by PowerOffice Go when a new entity is saved.
+	ID string `json:"Id"`
+	// Gets or sets the imported order no.
+	ImportedOrderNo int `json:"ImportedOrderNo"`
+	// Gets or sets the imported Voucher number. This value can be used to set a reference from the external system creating the voucher.
+	ImportedVoucherNo int `json:"ImportedVoucherNo"`
+	// Gets or sets the invoice number.
+	InvoiceNo int `json:"InvoiceNo"`
+	// Gets information whether this voucher has been reversed. This can be done by the API through the Reverse method in the voucher service.
+	IsReversed bool `json:"IsReversed"`
+	// Gets or sets the outgoing invoice lines ( OutgoingInvoiceVoucherLine ). All lines will be posted credit and the credit sum of the lines will be posted debit on the Customer sub ledger account. Lines that shall be posted debit should be specified with negative amount.
+	Lines OutgoingInvoiceVoucherLines `json:"Lines"`
+	// Gets or sets the code of the Employee that is the sales person on this invoice.
+	OurReferenceEmployeeCode int `json:"OurReferenceEmployeeCode"`
+	// Gets or sets the code of the Project .
+	ProjectCode string `json:"ProjectCode"`
+	// Gets or sets the purchase order no.
+	PurchaseOrderNo string `json:"PurchaseOrderNo"`
+	// Gets or sets the SAF-T batch id. This is the ID of the batch in the system that transferred the voucher. Should be set if this voucher is a batch voucher containing the entries of multiple vouchers in the external system. When this voucher is exported to SAF-T, this property is transactions BatchID in the SAF-T file. The external systems SAF-T export should set the same BatchId on all the transactions that are included in this Voucher to ensure audit trail. Max length is 35 characters.
+	SaftBatchId string `json:"SaftBatchId"`
+	// Gets or sets the SAF-T source id. This is the ID of the system that generated the voucher. When this voucher is exported to SAF-T, this property is mapped on the transactions SourceID in the SAF-T file. If the creating system is required to export it's own SAF-T file, this source id should correspond with the SystemID in the SAF-T file of the external system to ensure an audit trail. Max length is 35 characters.
+	SaftSourceId string `json:"SaftSourceId"`
+	// Gets or sets the voucher date.
+	VoucherDate Date `json:"VoucherDate"`
+	// Gets the Voucher number. This value is assigned by PowerOffice Go when the voucher is posted.
+	VoucherNo int `json:"VoucherNo"`
+}
+
+type OutgoingInvoiceVoucherLines []OutgoingInvoiceVoucherLine
+
+type OutgoingInvoiceVoucherLine struct {
+	// Gets or sets the account code this voucher line should be posted on. The account code can either be the code on a GeneralLedgerAccount , or if the accounting entry is on a sub ledger account, the code provided can be for a Customer , Supplier or Employee .
+	AccountCode int `json:"AccountCode"`
+	// Gets or sets if GoApi.Voucher.OutgoingInvoiceVoucherLine.Accrual is used to enable accrual of the invoice. (Norwegian: Periodisering)
+	Accrual Accrual `json:"Accrual"`
+	// Gets or sets the total amount of the line. This is the amount to be posted in the same currency as the voucher, or the currency overridden on the line for some voucher types. The amount is specified VAT inclusive. Specifying a negative amount here will post the amount as credit and a positive amount will post the amount as debit on all voucher types except OutgoingInvoiceVoucher / OutgoingInvoiceVoucherLine .
+	Amount float64 `json:"Amount"`
+	// Gets or sets the code of the Department . If set to "-1", this line will not inherit the department set on the voucher level, and no department will be posted to Go for this line
+	DepartmentCode string `json:"DepartmentCode"`
+	// Gets or sets the description.
+	Description string `json:"Description"`
+	// Gets or sets the code of the custom dimension 1. If set to "-1", this line will not inherit the value set on the voucher level, and no Dim1 will be posted to Go for this line
+	Dim1Code string `json:"Dim1Code"`
+	// Gets or sets the code of the custom dimension 2. If set to "-1", this line will not inherit the value set on the voucher level, and no Dim2 will be posted to Go for this line
+	Dim2Code string `json:"Dim2Code"`
+	// Gets or sets the code of the custom dimension 3. If set to "-1", this line will not inherit the value set on the voucher level, and no Dim3 will be posted to Go for this line
+	Dim3Code string `json:"Dim3Code"`
+	// Gets or sets the discount on the sales line. This field is only for information and does not effect Amount (The discount is already included in the amount). The value should be between 0 and 100, where the value 50 means 50 % discount. Can also be used to add a premium in percent of the sales price (usually markup) by having negative number. Negative numbers can be between -1000 and 0.
+	DiscountPercent float64 `json:"DiscountPercent"`
+	// Gets or sets the external import line reference. Used by external systems to match voucher lines. Max length is 50 characters.
+	ExternalImportLineReference string `json:"ExternalImportLineReference"`
+	// Gets the identifier. This identifier is unique and assigned by PowerOffice Go when a new entity is saved.
+	ID int `json:"Id"`
+	// Gets or sets the code of the Product .
+	ProductCode string `json:"ProductCode"`
+	// Gets or sets the code of the Project . If set to "-1", this line will not inherit the project set on the voucher level, and no project will be posted to Go for this line
+	ProjectCode string `json:"ProjectCode"`
+	// Gets or sets the quantity.
+	Quantity float64 `json:"Quantity"`
+	// Gets or sets the product unit.
+	Unit string `json:"Unit"`
+	// Gets or sets the unit cost price of this outgoing invoice line.
+	UnitCostPrice float64 `json:"UnitCostPrice"`
+	// Gets or sets the code of the VatCode for this voucher line. Vat will be calculated depending on what code is provided from the total amount inclusive (Amount). If not provided, the voucher will use default VAT code 0 on the line, resulting in a vat free transaction.
+	VATCode string `json:"VatCode"`
+	// Gets or sets the VatReturnSpecification . Entries that are vat reportable might report vat return specifications from 2022. If not provided, the voucher will use the vat returns specification that is default on the account if there is any, otherwise GoApi.Common.VatReturnSpecification.None .
+	VATReturnSpecification VATReturnSpecification `json:"VatReturnSpecification"`
+}
