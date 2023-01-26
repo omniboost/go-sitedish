@@ -110,7 +110,7 @@ func (r *OutgoingInvoiceVoucherPost) NewResponseBody() *OutgoingInvoiceVoucherPo
 type OutgoingInvoiceVoucherPostResponseBody struct{}
 
 func (r *OutgoingInvoiceVoucherPost) URL() *url.URL {
-	u := r.client.GetEndpointURL("/OutgoingInvoiceVoucher/", r.PathParams())
+	u := r.client.GetEndpointURL("/Voucher/OutgoingInvoiceVoucher/", r.PathParams())
 	return &u
 }
 
