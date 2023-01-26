@@ -864,106 +864,122 @@ type GeneralLedgerAccount struct {
 
 type OutgoingInvoiceVoucher struct {
 	// Gets or sets the Customer Identification Code (Norwegian: KID).
-	CID string `json:"Cid"`
+	CID string `json:"Cid,omitempty"`
 	// Gets or sets the contract no.
-	ContractNo string `json:"ContractNo"`
+	ContractNo string `json:"ContractNo,omitempty"`
 	// Gets the created date. This value is assigned by PowerOffice Go when the voucher is posted.
-	CreatedDate Date `json:"CreatedDate"`
+	CreatedDate Date `json:"CreatedDate,omitempty"`
 	// Gets or sets the currency code.
-	CurrencyCode string `json:"CurrencyCode"`
+	CurrencyCode string `json:"CurrencyCode,omitempty"`
 	// Gets or sets the normalized currency rate of the OutgoingInvoiceVoucher (factor to multiply amount in voucher currency with to get amount in local currency).
-	CurrencyRate float64 `json:"CurrencyRate"`
+	CurrencyRate float64 `json:"CurrencyRate,omitempty"`
 	// Gets or sets the code of the Customer this invoice is to.
-	CustomerCode int `json:"CustomerCode"`
+	CustomerCode int `json:"CustomerCode,omitempty"`
 	// Gets or sets the customer reference.
-	CustomerReference string `json:"CustomerReference"`
+	CustomerReference string `json:"CustomerReference,omitempty"`
 	// Gets or sets the custom matching reference. Vouchers with this value can be matched with other entries with same CustomMatchingReference.
-	CustomMatchingReference string `json:"CustomMatchingReference"`
+	CustomMatchingReference string `json:"CustomMatchingReference,omitempty"`
 	// Gets or sets the delivery date.
-	DeliveryDate Date `json:"DeliveryDate"`
+	DeliveryDate Date `json:"DeliveryDate,omitempty"`
 	// Gets or set delivery term of the invoice.
-	DeliveryTerm string `json:"DeliveryTerm"`
+	DeliveryTerm string `json:"DeliveryTerm,omitempty"`
 	// Gets or sets the code of the Department .
-	DepartmentCode string `json:"DepartmentCode"`
+	DepartmentCode string `json:"DepartmentCode,omitempty"`
 	// Gets or sets the code of the custom dimension 1.
-	Dim1Code string `json:"Dim1Code"`
+	Dim1Code string `json:"Dim1Code,omitempty"`
 	// Gets or sets the code of the custom dimension 2.
-	Dim2Code string `json:"Dim2Code"`
+	Dim2Code string `json:"Dim2Code,omitempty"`
 	// Gets or sets the code of the custom dimension 3.
-	Dim3Code string `json:"Dim3Code"`
+	Dim3Code string `json:"Dim3Code,omitempty"`
 	// Gets or sets the due date. If not provided, the due date of the outgoing invoice voucher will be set to VoucherDate.
-	DueDate Date `json:"DueDate"`
+	DueDate Date `json:"DueDate,omitempty"`
 	// Gets or sets ExternalImportReference. Can be used to correlate/duplicate check vouchers. Must be a unique value for a given client. Max length is 50 characters.
-	ExternalImportReference string `json:"ExternalImportReference"`
+	ExternalImportReference string `json:"ExternalImportReference,omitempty"`
 	// Set to true if the voucher has VoucherDocumentation imported through the API.
-	HasImportedDocumentation bool `json:"HasImportedDocumentation"`
+	HasImportedDocumentation bool `json:"HasImportedDocumentation,omitempty"`
 	// Gets a value indicating if the invoice has original documentation.
-	HasVoucherDocumentation bool `json:"HasVoucherDocumentation"`
+	HasVoucherDocumentation bool `json:"HasVoucherDocumentation,omitempty"`
 	// Gets the identifier. This identifier is unique and assigned by PowerOffice Go when a new entity is saved.
-	ID string `json:"Id"`
+	ID string `json:"Id,omitempty"`
 	// Gets or sets the imported order no.
-	ImportedOrderNo int `json:"ImportedOrderNo"`
+	ImportedOrderNo int `json:"ImportedOrderNo,omitempty"`
 	// Gets or sets the imported Voucher number. This value can be used to set a reference from the external system creating the voucher.
-	ImportedVoucherNo int `json:"ImportedVoucherNo"`
+	ImportedVoucherNo int `json:"ImportedVoucherNo,omitempty"`
 	// Gets or sets the invoice number.
-	InvoiceNo int `json:"InvoiceNo"`
+	InvoiceNo int `json:"InvoiceNo,omitempty"`
 	// Gets information whether this voucher has been reversed. This can be done by the API through the Reverse method in the voucher service.
-	IsReversed bool `json:"IsReversed"`
+	IsReversed bool `json:"IsReversed,omitempty"`
 	// Gets or sets the outgoing invoice lines ( OutgoingInvoiceVoucherLine ). All lines will be posted credit and the credit sum of the lines will be posted debit on the Customer sub ledger account. Lines that shall be posted debit should be specified with negative amount.
-	Lines OutgoingInvoiceVoucherLines `json:"Lines"`
+	Lines OutgoingInvoiceVoucherLines `json:"Lines,omitempty"`
 	// Gets or sets the code of the Employee that is the sales person on this invoice.
-	OurReferenceEmployeeCode int `json:"OurReferenceEmployeeCode"`
+	OurReferenceEmployeeCode int `json:"OurReferenceEmployeeCode,omitempty"`
 	// Gets or sets the code of the Project .
-	ProjectCode string `json:"ProjectCode"`
+	ProjectCode string `json:"ProjectCode,omitempty"`
 	// Gets or sets the purchase order no.
-	PurchaseOrderNo string `json:"PurchaseOrderNo"`
+	PurchaseOrderNo string `json:"PurchaseOrderNo,omitempty"`
 	// Gets or sets the SAF-T batch id. This is the ID of the batch in the system that transferred the voucher. Should be set if this voucher is a batch voucher containing the entries of multiple vouchers in the external system. When this voucher is exported to SAF-T, this property is transactions BatchID in the SAF-T file. The external systems SAF-T export should set the same BatchId on all the transactions that are included in this Voucher to ensure audit trail. Max length is 35 characters.
-	SaftBatchId string `json:"SaftBatchId"`
+	SaftBatchId string `json:"SaftBatchId,omitempty"`
 	// Gets or sets the SAF-T source id. This is the ID of the system that generated the voucher. When this voucher is exported to SAF-T, this property is mapped on the transactions SourceID in the SAF-T file. If the creating system is required to export it's own SAF-T file, this source id should correspond with the SystemID in the SAF-T file of the external system to ensure an audit trail. Max length is 35 characters.
-	SaftSourceId string `json:"SaftSourceId"`
+	SaftSourceId string `json:"SaftSourceId,omitempty"`
 	// Gets or sets the voucher date.
-	VoucherDate Date `json:"VoucherDate"`
+	VoucherDate Date `json:"VoucherDate,omitempty"`
 	// Gets the Voucher number. This value is assigned by PowerOffice Go when the voucher is posted.
-	VoucherNo int `json:"VoucherNo"`
+	VoucherNo int `json:"VoucherNo,omitempty"`
+}
+
+func (v OutgoingInvoiceVoucher) MarshalJSON() ([]byte, error) {
+	return omitempty.MarshalJSON(v)
+}
+
+func (v OutgoingInvoiceVoucher) IsEmpty() bool {
+	return zero.IsZero(v)
 }
 
 type OutgoingInvoiceVoucherLines []OutgoingInvoiceVoucherLine
 
 type OutgoingInvoiceVoucherLine struct {
 	// Gets or sets the account code this voucher line should be posted on. The account code can either be the code on a GeneralLedgerAccount , or if the accounting entry is on a sub ledger account, the code provided can be for a Customer , Supplier or Employee .
-	AccountCode int `json:"AccountCode"`
+	AccountCode int `json:"AccountCode,omitempty"`
 	// Gets or sets if GoApi.Voucher.OutgoingInvoiceVoucherLine.Accrual is used to enable accrual of the invoice. (Norwegian: Periodisering)
-	Accrual Accrual `json:"Accrual"`
+	Accrual Accrual `json:"Accrual,omitempty"`
 	// Gets or sets the total amount of the line. This is the amount to be posted in the same currency as the voucher, or the currency overridden on the line for some voucher types. The amount is specified VAT inclusive. Specifying a negative amount here will post the amount as credit and a positive amount will post the amount as debit on all voucher types except OutgoingInvoiceVoucher / OutgoingInvoiceVoucherLine .
-	Amount float64 `json:"Amount"`
+	Amount float64 `json:"Amount,omitempty"`
 	// Gets or sets the code of the Department . If set to "-1", this line will not inherit the department set on the voucher level, and no department will be posted to Go for this line
-	DepartmentCode string `json:"DepartmentCode"`
+	DepartmentCode string `json:"DepartmentCode,omitempty"`
 	// Gets or sets the description.
-	Description string `json:"Description"`
+	Description string `json:"Description,omitempty"`
 	// Gets or sets the code of the custom dimension 1. If set to "-1", this line will not inherit the value set on the voucher level, and no Dim1 will be posted to Go for this line
-	Dim1Code string `json:"Dim1Code"`
+	Dim1Code string `json:"Dim1Code,omitempty"`
 	// Gets or sets the code of the custom dimension 2. If set to "-1", this line will not inherit the value set on the voucher level, and no Dim2 will be posted to Go for this line
-	Dim2Code string `json:"Dim2Code"`
+	Dim2Code string `json:"Dim2Code,omitempty"`
 	// Gets or sets the code of the custom dimension 3. If set to "-1", this line will not inherit the value set on the voucher level, and no Dim3 will be posted to Go for this line
-	Dim3Code string `json:"Dim3Code"`
+	Dim3Code string `json:"Dim3Code,omitempty"`
 	// Gets or sets the discount on the sales line. This field is only for information and does not effect Amount (The discount is already included in the amount). The value should be between 0 and 100, where the value 50 means 50 % discount. Can also be used to add a premium in percent of the sales price (usually markup) by having negative number. Negative numbers can be between -1000 and 0.
-	DiscountPercent float64 `json:"DiscountPercent"`
+	DiscountPercent float64 `json:"DiscountPercent,omitempty"`
 	// Gets or sets the external import line reference. Used by external systems to match voucher lines. Max length is 50 characters.
-	ExternalImportLineReference string `json:"ExternalImportLineReference"`
+	ExternalImportLineReference string `json:"ExternalImportLineReference,omitempty"`
 	// Gets the identifier. This identifier is unique and assigned by PowerOffice Go when a new entity is saved.
-	ID int `json:"Id"`
+	ID int `json:"Id,omitempty"`
 	// Gets or sets the code of the Product .
-	ProductCode string `json:"ProductCode"`
+	ProductCode string `json:"ProductCode,omitempty"`
 	// Gets or sets the code of the Project . If set to "-1", this line will not inherit the project set on the voucher level, and no project will be posted to Go for this line
-	ProjectCode string `json:"ProjectCode"`
+	ProjectCode string `json:"ProjectCode,omitempty"`
 	// Gets or sets the quantity.
-	Quantity float64 `json:"Quantity"`
+	Quantity float64 `json:"Quantity,omitempty"`
 	// Gets or sets the product unit.
-	Unit string `json:"Unit"`
+	Unit string `json:"Unit,omitempty"`
 	// Gets or sets the unit cost price of this outgoing invoice line.
-	UnitCostPrice float64 `json:"UnitCostPrice"`
+	UnitCostPrice float64 `json:"UnitCostPrice,omitempty"`
 	// Gets or sets the code of the VatCode for this voucher line. Vat will be calculated depending on what code is provided from the total amount inclusive (Amount). If not provided, the voucher will use default VAT code 0 on the line, resulting in a vat free transaction.
-	VATCode string `json:"VatCode"`
+	VATCode string `json:"VatCode,omitempty"`
 	// Gets or sets the VatReturnSpecification . Entries that are vat reportable might report vat return specifications from 2022. If not provided, the voucher will use the vat returns specification that is default on the account if there is any, otherwise GoApi.Common.VatReturnSpecification.None .
-	VATReturnSpecification VATReturnSpecification `json:"VatReturnSpecification"`
+	VATReturnSpecification VATReturnSpecification `json:"VatReturnSpecification,omitempty"`
+}
+
+func (l OutgoingInvoiceVoucherLine) MarshalJSON() ([]byte, error) {
+	return omitempty.MarshalJSON(l)
+}
+
+func (l OutgoingInvoiceVoucherLine) IsEmpty() bool {
+	return zero.IsZero(l)
 }
