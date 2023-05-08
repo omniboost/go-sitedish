@@ -1,4 +1,4 @@
-module github.com/omniboost/go-poweroffice
+module github.com/omniboost/go-sitedish
 
 go 1.18
 

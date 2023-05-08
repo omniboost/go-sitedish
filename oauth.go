@@ -1,4 +1,4 @@
-package poweroffice
+package sitedish
 
 import (
 	"net/url"
@@ -20,7 +20,7 @@ func NewOauth2Config() *Oauth2Config {
 			ClientID:     "",
 			ClientSecret: "",
 			Scopes:       []string{},
-			TokenURL:     BaseURL.String() + "/OAuth/Token",
+			TokenURL:     BaseURL.String() + "/token",
 			AuthStyle:    oauth2.AuthStyleInHeader,
 		},
 	}
@@ -35,5 +35,5 @@ func (c *Oauth2Config) SetBaseURL(baseURL *url.URL) {
 	// These are not registered in the oauth library by default
 	oauth2.RegisterBrokenAuthHeaderProvider(baseURL.String())
 
-	c.Config.TokenURL = baseURL.String() + "/OAuth/Token"
+	c.Config.TokenURL = baseURL.String() + "/token"
 }

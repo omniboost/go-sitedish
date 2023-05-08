@@ -1,4 +1,4 @@
-package poweroffice
+package sitedish
 
 import (
 	"encoding/json"

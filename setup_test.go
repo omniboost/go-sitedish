@@ -1,4 +1,4 @@
-package poweroffice_test
+package sitedish_test
 
 import (
 	"context"
@@ -7,11 +7,11 @@ import (
 	"os"
 	"testing"
 
-	poweroffice "github.com/omniboost/go-poweroffice"
+	sitedish "github.com/omniboost/go-sitedish"
 )
 
 var (
-	client *poweroffice.Client
+	client *sitedish.Client
 )
 
 func TestMain(m *testing.M) {
@@ -22,14 +22,14 @@ func TestMain(m *testing.M) {
 	tokenURL := os.Getenv("TOKEN_URL")
 	debug := os.Getenv("DEBUG")
 
-	oauthConfig := poweroffice.NewOauth2Config()
+	oauthConfig := sitedish.NewOauth2Config()
 	oauthConfig.ClientID = clientID
 	oauthConfig.ClientSecret = clientSecret
 
 	// get http client with automatic oauth logic
 	httpClient := oauthConfig.Client(context.Background())
 
-	client = poweroffice.NewClient(httpClient)
+	client = sitedish.NewClient(httpClient)
 	if debug != "" {
 		client.SetDebug(true)
 	}
