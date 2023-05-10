@@ -28,8 +28,8 @@ const (
 var (
 	BaseURL = url.URL{
 		Scheme: "https",
-		Host:   "api.sitedish.net",
-		Path:   "",
+		Host:   "api.sitedish.nl",
+		Path:   "/api/v1",
 	}
 )
 
