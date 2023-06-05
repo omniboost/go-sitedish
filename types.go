@@ -15,7 +15,7 @@ type Order struct {
 	OrderType     string     `json:"orderType"`
 	Courier       string     `json:"courier"`
 	DeliveryCosts float64    `json:"deliveryCosts"`
-	Tip           int        `json:"tip"`
+	Tip           float64    `json:"tip"`
 	TotalPrice    float64    `json:"totalPrice"`
 	TotalFee      float64    `json:"totalFee"`
 	TotalDiscount float64    `json:"totalDiscount"`
