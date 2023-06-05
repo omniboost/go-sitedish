@@ -14,7 +14,7 @@ type Order struct {
 	OrderDate     time.Time  `json:"orderDate"`
 	OrderType     string     `json:"orderType"`
 	Courier       string     `json:"courier"`
-	DeliveryCosts int        `json:"deliveryCosts"`
+	DeliveryCosts float64    `json:"deliveryCosts"`
 	Tip           int        `json:"tip"`
 	TotalPrice    float64    `json:"totalPrice"`
 	TotalFee      float64    `json:"totalFee"`
