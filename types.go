@@ -75,7 +75,7 @@ type Product struct {
 		Count   int         `json:"count"`
 		Price   float64     `json:"price"`
 		VAT     float64     `json:"vat"`
-		Deposit int         `json:"deposit"`
+		Deposit float64         `json:"deposit"`
 	} `json:"sideDishes"`
 }
 
