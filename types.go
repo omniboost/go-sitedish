@@ -17,6 +17,7 @@ type Order struct {
 	DeliveryCosts float64    `json:"deliveryCosts"`
 	Tip           float64    `json:"tip"`
 	TotalPrice    float64    `json:"totalPrice"`
+	TotalSupFee   float64    `json:"totalSupFee"`
 	TotalFee      float64    `json:"totalFee"`
 	TotalDiscount float64    `json:"totalDiscount"`
 	TotalDeposit  float64    `json:"totalDeposit"`
@@ -75,7 +76,7 @@ type Product struct {
 		Count   int         `json:"count"`
 		Price   float64     `json:"price"`
 		VAT     float64     `json:"vat"`
-		Deposit float64         `json:"deposit"`
+		Deposit float64     `json:"deposit"`
 	} `json:"sideDishes"`
 }
 
